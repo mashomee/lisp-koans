@@ -23,8 +23,8 @@
         (some-evens nil))
     (setf fruits '(orange pomello clementine))
     (setf some-evens (list (* 2 1) (* 2 2) (* 2 3)))
-    (assert-equal fruits ___)
-    (assert-equal ___ (length some-evens))))
+    (assert-equal '(orange pomello clementine) fruits )
+    (assert-equal 3 (length some-evens))))
 
 
 (define-test test-list-cons
@@ -35,15 +35,15 @@
       (assert-equal '(:one) nums)
 
       (setf nums (cons :two nums))
-      (assert-equal ___ nums)
+      (assert-equal '(:two :one)  nums)
 
       "lists can contain anything, even mixtures of different things"
       (setf nums (cons 333 nums))
-      (assert-equal ___ nums)
+      (assert-equal '(333 :two :one)  nums)
 
       "lists can of course contain lists"
       (setf nums (cons '("the" "rest") nums))
-      (assert-equal ___ nums)))
+      (assert-equal '( ("the" "rest") 333 :two :one)  nums)))
 
 
 (define-test test-push-pop
@@ -60,8 +60,8 @@
       (assert-equal '(10 20 30 40) stack)
 
       (setf firstval (pop stack))
-      (assert-equal ___ firstval)
-      (assert-equal ___ stack)))
+      (assert-equal 10 firstval)
+      (assert-equal '(20 30 40)  stack)))
 
 
 (define-test test-append
@@ -72,15 +72,15 @@
         (xyz '(:x :y :z))
         (abcxyz nil))
     (setf abcxyz (append abc xyz))
-    (assert-equal ___ abc)
-    (assert-equal ___ xyz)
-    (assert-equal ___ abcxyz)))
+    (assert-equal '(:a :b :c)  abc)
+    (assert-equal '(:x :y :z)  xyz)
+    (assert-equal '(:a :b :c :x :y :z)  abcxyz)))
 
 
 (define-test test-accessing-list-elements
     (let ((noms '("peanut" "butter" "and" "jelly")))
       (assert-equal "peanut" (first noms))
-      (assert-equal ___ (second noms))
+      (assert-equal "butter" ___ (second noms))
       (assert-equal ___ (fourth noms))
       "last returns a singleton list of the final element"
       (assert-equal ___ (last noms))

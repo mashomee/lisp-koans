@@ -24,6 +24,13 @@
   (while (char-equal ?_ (char-after))
     (delete-forward-char 1)))
 
+(defun skip-next-some ()
+  (interactive)
+  (while (or (char-equal (char-after) ?\))
+	     (char-equal (char-after) ?\")
+	     (char-equal (char-after) ?\ ))
+    (goto-char (1+ (point)))))
+
 (defun find-next-blanks ()
   (let ((blank "__")
 	(dump))
@@ -59,6 +66,7 @@
   (local-set-key
    (kbd "C-c n")
    #'(lambda () (interactive)
+       (skip-next-some)
        (erase-following-blanks)
        (if (at-last-found-blank-postion)
 	   (find-next-blanks)
