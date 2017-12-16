@@ -25,7 +25,7 @@
 
 (define-test assert-true
     "t is true.  Replace the blank with a t"
-    (assert-true ___))
+    (assert-true t))
 
 (define-test assert-false
     "nil is false"
