@@ -50,8 +50,29 @@
 ; Your goal is to write the score method.
 
 (defun score (dice)
-  ; You need to write this method
-)
+  (let ((res-list '()))
+    (let ((scores (make-hash-table))
+	  (calc #'(lambda (n cnt)
+		    ;; (format t "n:~A;cnt:~A~%" n cnt)
+		    (let ((sum-3 0)
+			  (sum-other 0))
+		      (when (>= cnt 3)
+			(setf sum-3 (case n
+				      (1 1000)
+				      (otherwise (* n 100))))
+			(decf cnt 3))
+		      (setf sum-other
+			    (case n
+			      (1 (* cnt 100))
+			      (5 (* cnt 50))
+			      (otherwise 0)))
+		      ;; (format t "sum-3:~A;sum-other:~A~%" sum-3 sum-other)
+		      (push (+ sum-3 sum-other) res-list)))))
+      (dolist (n dice)
+	(setf (gethash n scores) (1+ (or (gethash n scores)
+					 0))))
+      (maphash calc scores)
+      (reduce #'+ res-list))))
 
 (define-test test-score-of-an-empty-list-is-zero
     (assert-equal 0 (score nil)))
