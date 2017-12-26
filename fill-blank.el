@@ -37,7 +37,7 @@
     (if (search-forward blank dump t)
 	(progn
 	  (backward-char (length blank))
-	  (push (point) fill-blank-postions)
+	  (push (point-marker) fill-blank-postions)
 	  (setf fill-blank-current-pos-idx (1- (length fill-blank-postions))))
       (princ "no more blanks after this!"))))
 
